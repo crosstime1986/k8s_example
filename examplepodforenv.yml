@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: examplepodforenv
+spec:
+  containers:
+  - name: containerforenv
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    env:
+    - name: parameter1
+      value: "good morning!"
+    - name: parameter2
+      value: "good night!"
+    command: ['sh','-c']
+    args: ['echo "${parameter1} ${parameter2}"; sleep 3600']

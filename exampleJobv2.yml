@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: examplejobv3
+spec: 
+  backoffLimit: 3
+  completions: 11
+  parallelism: 3
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: examplejobcontainer
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "-c"]
+        args: ['echo "Hello World"; sleep 30; echo "Goodbye World"']

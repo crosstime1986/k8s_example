@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: examplepod
+    namespace: default
+    labels:
+        fruit: apple 
+spec:
+    imagePullSecrets:
+    - name: regcre
+    containers:
+    - name: examplepod-container
+      image: harbor.gaore.com/tools/busybox:stable
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c']
+      args: ['echo "Hello Kubernetes busybox replaced!"; sleep 3600']
+      

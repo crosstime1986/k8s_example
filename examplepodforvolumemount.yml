@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: examplepodforvolumemount
+spec:
+    containers:
+    -   name: containerforwrite
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c']
+        args: ['echo "test data!" > /write_dir/data; sleep 3600']
+        volumeMounts:
+        -   name: filedata
+            mountPath: /write_dir
+    -   name: containerforread
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c']
+        args: ['cat /read_dir/data; sleep 3600']
+        volumeMounts:
+        -   name: filedata
+            mountPath: /read_dir
+    volumes:
+    -   name: filedata
+        emptyDir: {} 
