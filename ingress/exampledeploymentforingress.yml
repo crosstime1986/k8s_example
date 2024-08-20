@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exampledeployfornginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      example: deploymentfornginx
+  template:
+    metadata:
+      labels:
+        example: deploymentfornginx
+    spec:
+      containers:
+      - name:  nginx
+        image: nginx:1.26.0
+        imagePullPolicy: IfNotPresent
+        ports: 
+        - containerPort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exampledeployforhttpd
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      example: deploymentforhttpd
+  template:
+    metadata: 
+      labels:
+        example: deploymentforhttpd
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:2.4
+        ports:
+        - containerPort: 80
