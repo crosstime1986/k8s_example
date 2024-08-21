@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Secret
+metadata: 
+  name: smb-secret 
+type: Opaque 
+data: 
+  username: "MTg1MjA2MzgyNzMK"
+  password: "Q3Jvc3N0aW1lMTk4Ngo="
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: examplefornfspv
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: examplensmb
+  csi:
+    driver: smb.csi.k8s.io
+    volumeHandle: smb-pv-handle
+    volumeAttributes:
+      source: "//192.168.4.141/185XXXX8273/下载"  # SMB 共享路径
+    nodeStageSecretRef:
+      name: smb-secret
+      namespace: default
