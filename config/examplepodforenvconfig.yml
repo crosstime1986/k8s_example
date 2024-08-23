@@ -1,0 +1,23 @@
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: examplepodforenvconfig
+spec:
+  containers:
+  - name: containerforenv
+    image: busybox
+    imagePullPolicy: IfNotPresent    
+    command: ['sh','-c']    
+    args: ['echo "EnvParaHostName: ${EnvParaHostName}  EnvParaBusinessMode:    ${EnvParaBusinessMode}"; printenv | grep EnvPara; sleep 3600']
+    env:
+    - name: EnvParaHostName
+      valueFrom:
+        configMapKeyRef:
+          name: exampleconfigmap
+          key: exampleHostName
+    - name: EnvParaBusinessMode
+      valueFrom:
+        configMapKeyRef:
+          name: exampleconfigmap
+          key: exampleBusinessMode

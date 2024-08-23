@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name:  exampleconfigmap
+data:
+  exampleHostName: www.testk8s.com
+  exampleBusinessMode: exampleMode

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: examplepodforenvconfigv2
+spec:
+  containers:
+  - name: containerforenv2
+    image: busybox    
+    imagePullPolicy: IfNotPresent    
+    command: ['sh','-c']    
+    args: ['printenv | grep example; sleep 3600']
+    envFrom:
+    - configMapRef:
+        name: exampleconfigmap
