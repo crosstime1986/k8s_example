@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: examplestatefulservice
+spec: 
+  selector:
+    example: examplestateful
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      port: 8080
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: examplestatefulset
+spec:
+  replicas: 3
+  serviceName: examplestatefulservice
+  selector:
+    matchLabels:
+      example: exampleforstateful
+  
+  template:
+    metadata:
+      labels:
+        example: exampleforstateful
+
+    spec:
+      containers:
+      - name: pythonserviceforstateful
+        image: python:3.7
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c']
+        args: ['echo "The host is $(hostname)" >> /dir/data; echo "<p>The hostis $(hostname)</p>" > index.html; python -m httcp.server 80']
+        volumeMounts:
+        - name: statfuldata
+          mountPath: /dir
+
+        ports:
+        - name: http
+          containerPort: 80
+  volumeClaimTemplates:
+  - metadata:
+      name: statfuldata
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: "managed-nfs-storage"
+      resources:
+        requests:
+          storage: 500Mi
