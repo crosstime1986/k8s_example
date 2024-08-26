@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name:  examplepodfordownward
+spec:
+  containers:
+  - name: examplecontainerforenv
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    command: ["sh", "-c"]
+    args: ['echo "EnvParaPodName: ${EnvParaPodName}  EnvParaPodIP: ${EnvParaPodIP}         EnvParaNodeName: ${EnvParaNodeName}"; printenv | grep EnvPara; sleep 3600']
+    env:
+    - name: EnvParaPodName
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: EnvParaPodIP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+    - name: EnvParaNodeName
+      valueFrom:
+        fieldRef:
+          fieldPath: spec.nodeName
