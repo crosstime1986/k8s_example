@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: examplepodforpullimage
+  namespace: default
+spec:
+  containers:
+  - name: examplecontainer
+    image: harbor.gaore.com/tools/python:latest
+    imagePullPolicy: IfNotPresent
+    command: ["sh", "-c"]
+    args: ["python --version; sleep 3600"]
+
+
+  imagePullSecrets:
+  - name: gaoreharbor
