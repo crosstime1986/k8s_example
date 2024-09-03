@@ -28,7 +28,7 @@ spec:
       serviceAccountName: nfs-client-provisioner
       containers:
         - name: nfs-client-provisioner
-          image: quay.io/external_storage/nfs-client-provisioner:latest
+          image: harbor.gaore.com/tools/nfs-client-provisioner:v3.1.0-k8s1.11
           volumeMounts:
             - name: nfs-client-root
               mountPath: /persistentvolumes
@@ -39,6 +39,8 @@ spec:
               value: 192.168.4.151
             - name: NFS_PATH
               value: /data0/nfs
+      imagePullSecrets:
+        - name: harbor-secret
       volumes:
         - name: nfs-client-root
           nfs:
