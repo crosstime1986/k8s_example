@@ -54,6 +54,7 @@ spec:
       - image:  wordpress:5.2-apache
         imagePullPolicy: IfNotPresent
         name: wordpress
+        dnsPolicy: Default
         env:
         - name: WORDPRESS_DB_HOST
           value: wordpress-mysql
