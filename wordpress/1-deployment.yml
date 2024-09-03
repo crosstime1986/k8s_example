@@ -28,7 +28,7 @@ spec:
       serviceAccountName: nfs-client-provisioner
       containers:
         - name: nfs-client-provisioner
-          image: registry.cn-hangzhou.aliyuncs.com/k8s_study_rfb/nfs-subdir-external-provisioner:v4.0.0
+          image: registry.cn-beijing.aliyuncs.com/xngczl/nfs-subdir-external-provisione:v4.0.0
           volumeMounts:
             - name: nfs-client-root
               mountPath: /persistentvolumes
