@@ -54,7 +54,6 @@ spec:
       - image:  wordpress:5.2-apache
         imagePullPolicy: IfNotPresent
         name: wordpress
-        dnsPolicy: Default
         env:
         - name: WORDPRESS_DB_HOST
           value: wordpress-mysql
@@ -69,6 +68,7 @@ spec:
         volumeMounts:
         - name: wordpress-persistent-storage
           mountPath: /var/www/html
+      dnsPolicy: Default
       volumes:
       - name: wordpress-persistent-storage
         persistentVolumeClaim:
