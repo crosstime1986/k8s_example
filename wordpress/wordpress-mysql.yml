@@ -16,16 +16,16 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-clain
+  name: mysql-pv-claim
   labels:
     app: wordpress
 spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "managed-nfs-storage"
   resources:
     requests:
       storage: 2Gi
-  storageClassName: "managed-nfs-storage"
-  accessModes:
-    - ReadWriteOnce
 
 ---
 apiVersion: apps/v1
@@ -65,4 +65,4 @@ spec:
       volumes:
         - name:  mysql-persistent-storage
           persistentVolumeClaim:
-            claimName: mysql-pv-clain
+            claimName: mysql-pv-claim
