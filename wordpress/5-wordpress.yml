@@ -68,7 +68,7 @@ spec:
         volumeMounts:
         - name: wordpress-persistent-storage
           mountPath: /var/www/html
-      dnsPolicy: Default
+      # dnsPolicy: Default
       volumes:
       - name: wordpress-persistent-storage
         persistentVolumeClaim:
