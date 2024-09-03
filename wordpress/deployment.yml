@@ -28,7 +28,7 @@ spec:
       serviceAccountName: nfs-client-provisioner
       containers:
         - name: nfs-client-provisioner
-          image: harbor.gaore.com/tools/nfs-client-provisioner:v3.1.0-k8s1.11
+          image: registry.cn-hangzhou.aliyuncs.com/k8s_study_rfb/nfs-subdir-external-provisioner:v4.0.0
           volumeMounts:
             - name: nfs-client-root
               mountPath: /persistentvolumes
