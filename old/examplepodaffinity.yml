@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: examplepod
+    namespace: default
+    labels:
+        fruit: apple 
+spec:
+    imagePullSecrets:
+    - name: regcre
+    containers:
+    - name: examplepod-container
+      image: harbor.gaore.com/tools/busybox:stable
+      imagePullPolicy: IfNotPresent
+      command: ['sh', '-c']
+      args: ['echo "Hello Kubernetes busybox replaced!"; sleep 3600']
+      resources: # 添加资源限制和请求
+        limits:
+            cpu: "1" # 设置最大可使用的CPU核心数
+            memory: "128Mi" # 设置最大可使用的内存大小
+        requests:
+            cpu: "0.5" # 设置最小需要的CPU核心数
+            memory: "64Mi" # 设置最小需要的内存大小
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - {key: purpose, operator: In, values: [backup]}
+              topologyKey: "kubernetes.io/hostname"
