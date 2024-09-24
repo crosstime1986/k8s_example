@@ -7,7 +7,7 @@ metadata:
         fruit: apple 
 spec:
     imagePullSecrets:
-    - name: regcre
+    - name: harbor-secret
     containers:
     - name: examplepod-container
       image: harbor.gaore.com/tools/busybox:stable
@@ -28,3 +28,5 @@ spec:
                 matchExpressions:
                 - {key: purpose, operator: In, values: [backup]}
               topologyKey: "kubernetes.io/hostname"
+   
+    
